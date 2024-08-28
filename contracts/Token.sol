@@ -7,5 +7,6 @@ import "hardhat/console.sol";
 contract Token {
     // name state variable "My Token"
     // public visibility accesses value from outside the contract
-    string public name = "My Token"; 
+    string public name = "Nex Gen";
+    string public symbol = "NXG";
 }
