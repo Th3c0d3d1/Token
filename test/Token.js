@@ -17,23 +17,33 @@ describe('Token', () => {
         token = await Token.deploy('Nex Gen', 'NXG', 1000000)
     })
 
-    it('has correct name', async () => {
+    // Declare the variables
+    const name = 'Nex Gen'
+    const symbol = 'NXG'
+    const decimals = '18'
+    const totalSupply = tokens('1000000')
+
+    // nested describe block
+    describe('Deployment', () => {
+
+        it('has correct name', async () => {
         // Read token name & Check the result
-        expect(await token.name()).to.equal('Nex Gen')
-    })
+        expect(await token.name()).to.equal(name)
+        })
 
-    it('has correct symbol', async () => {
-        // Read token symbol & Check the result
-        expect(await token.symbol()).to.equal('NXG')
-    })
+        it('has correct symbol', async () => {
+            // Read token symbol & Check the result
+            expect(await token.symbol()).to.equal(symbol)
+        })
 
-    it('has correct decimals', async () => {
-        // Read token decimals & Check the result
-        expect(await token.decimals()).to.equal('18')
-    })
+        it('has correct decimals', async () => {
+            // Read token decimals & Check the result
+            expect(await token.decimals()).to.equal(decimals)
+        })
 
-    it('has correct total supply', async () => {
-        // Read token total supply & Check the result
-        expect(await token.totalSupply()).to.equal(tokens(1000000))
+        it('has correct total supply', async () => {
+            // Read token total supply & Check the result
+            expect(await token.totalSupply()).to.equal(totalSupply)
+        })
     })
 })
