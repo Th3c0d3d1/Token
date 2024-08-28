@@ -1,7 +1,7 @@
 async function main() {
     // We get the contract to deploy
     // grabs info from artifacts/contracts/Token.sol/Token.json
-    const Token = await ethers.getContractFactory("Token");
+    const Token = await ethers.getContractFactory("My Token");
 
     // Deploy the contract
     const token = await Token.deploy();
