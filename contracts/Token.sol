@@ -12,10 +12,23 @@ contract Token {
     uint public decimals = 18;
     uint public totalSupply;
 
+    // Track balances for each address
+    // mapping is a key-value store
+    // key is an address, value is account balance
+    // balanceOf is a state variable
+    // database stored on the blockchain
+    mapping(address => uint256) public balanceOf;
+    // Send tokens from one address to another
+
     constructor(string memory _name, string memory _symbol, uint _totalSupply) {
-        // arg passed into state variable when contract is deployed
+        // arg (local variables) passed into state variable when contract is deployed
         name = _name;
         symbol = _symbol;
         totalSupply = _totalSupply * (10**decimals);
+
+        // msg.sender is the address that deployed the contract
+        // msg is a global variable
+        // [msg.sender] read & write to balanceOf mapping
+        balanceOf[msg.sender] = totalSupply;
     }
 }

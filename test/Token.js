@@ -7,7 +7,9 @@ const tokens = (n) => {
 
 describe('Token', () => {
     // Declares the variable to store in the deployed contract & makes the token variable scope accessible to every function in describe
-    let token
+    let token, 
+        accounts, 
+        deployer
 
     beforeEach(async () => {
         // Fetch the contract factory
@@ -15,6 +17,10 @@ describe('Token', () => {
         // Assign the value of the deployed contract to the token variable
         // State variable token is assigned the value of the deployed contract
         token = await Token.deploy('Nex Gen', 'NXG', 1000000)
+
+        // Get the account(s) from ethers
+        accounts = await ethers.getSigners()
+        deployer = accounts[0]
     })
 
     // Declare the variables
@@ -44,6 +50,11 @@ describe('Token', () => {
         it('has correct total supply', async () => {
             // Read token total supply & Check the result
             expect(await token.totalSupply()).to.equal(totalSupply)
+        })
+
+        it('assigns the total supply to the deployer', async () => {
+            // Read token balance of deployer & Check the result
+            expect(await token.balanceOf(deployer.address)).to.equal(totalSupply)
         })
     })
 })
