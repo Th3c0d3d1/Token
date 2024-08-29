@@ -19,8 +19,15 @@ contract Token {
     // balanceOf is a state variable
     // database stored on the blockchain
     mapping(address => uint256) public balanceOf;
-    // Send tokens from one address to another3
 
+    // Allowance mapping
+    // 2D mapping
+    // 1st key is the owner of the tokens
+    // 2nd key is all potential spenders
+    // value is the amount of tokens that spender is allowed to spend
+    mapping(address => mapping(address => uint256)) public allowance;
+
+    // Send tokens from one address to another
     // Indexed keyword allows you to filter events
     // Arguments are indexed in the event log
     event Transfer(
@@ -28,6 +35,12 @@ contract Token {
         address indexed to, 
         uint256 value
         );
+
+    event Approval(
+        address indexed owner, 
+        address indexed spender, 
+        uint256 value
+    );
 
     constructor(
         string memory _name, 
@@ -45,7 +58,10 @@ contract Token {
         balanceOf[msg.sender] = totalSupply;
     }
 
-    function transfer(address _to, uint _value) public returns (bool success) {
+    function transfer(address _to, uint _value) 
+    public 
+    returns (bool success) 
+    {
         // Require that the sender has enough tokens
         // Throw an error if the condition is not met
         require(balanceOf[msg.sender] >= _value, 'Not enough tokens');
@@ -60,6 +76,20 @@ contract Token {
         // Emit the event
         emit Transfer(msg.sender, _to, _value);
 
+        return true;
+    }
+
+    // Approve tokens
+    function approve(address _spender, uint _value) 
+    public 
+    returns (bool success) 
+    {
+        require(_spender != address(0));
+        // Allowance mapping
+        allowance[msg.sender][_spender] = _value;
+
+        // Emit the event
+        emit Approval(msg.sender, _spender, _value);
         return true;
     }
 }
