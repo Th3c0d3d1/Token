@@ -59,24 +59,35 @@ contract Token {
     }
 
     function transfer(address _to, uint _value) 
-    public 
-    returns (bool success) 
+        public 
+        returns (bool success) 
     {
         // Require that the sender has enough tokens
         // Throw an error if the condition is not met
         require(balanceOf[msg.sender] >= _value, 'Not enough tokens');
+
+        _transfer(msg.sender, _to, _value);
+
+        return true;
+    }
+
+    // Internal function to transfer tokens
+    function _transfer(
+        address _from,
+        address _to,
+        uint _value
+    ) internal {
+        require(balanceOf[_from] >= _value, 'Not enough tokens');
         require(_to != address(0));
 
         // Deduct tokens from sender
-        balanceOf[msg.sender] -= _value;
+        balanceOf[_from] -= _value;
 
         // Credit the recipient
         balanceOf[_to] += _value;
 
         // Emit the event
-        emit Transfer(msg.sender, _to, _value);
-
-        return true;
+        emit Transfer(_from, _to, _value);
     }
 
     // Approve tokens
@@ -91,5 +102,29 @@ contract Token {
         // Emit the event
         emit Approval(msg.sender, _spender, _value);
         return true;
+    }
+
+    function transferFrom(
+        address _from,
+        address _to,
+        uint _value
+    ) 
+    public 
+    returns (bool success)
+    {
+    // check approval
+    // require that the owner has enough tokens
+    require(_value <= balanceOf[_from], 'Not enough tokens');
+    // require that the spender has allowed msg.sender to spend _value tokens
+    require(_value <= allowance[_from][msg.sender], 'Allowance exceeded');
+    
+    // reset the allowance
+    // updates the allowance of the msg.sender mapping
+    allowance[_from][msg.sender] = allowance[_from][msg.sender] - _value;
+
+    // spend tokens on behalf of the owner
+    _transfer(_from, _to, _value);
+
+    return true;
     }
 }
