@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: UNLICENSE
 pragma solidity ^0.8.0;
 
 // allows you to log messages to the console
