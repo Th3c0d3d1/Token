@@ -19,7 +19,7 @@ describe('Token', () => {
         const Token = await ethers.getContractFactory('Token')
         // Assign the value of the deployed contract to the token variable
         // State variable token is assigned the value of the deployed contract
-        token = await Token.deploy('Nex Gen', 'NXG', 1000000)
+        token = await Token.deploy('Insert Token Name', 'Insert Token Symbol', 'Insert Token Supply as number w/o string')
 
         // Get the account(s) from ethers
         accounts = await ethers.getSigners()
@@ -29,10 +29,10 @@ describe('Token', () => {
     })
 
     // Declare the variables
-    const name = 'Nex Gen'
-    const symbol = 'NXG'
+    const name = 'Insert Token Name'
+    const symbol = 'Insert Token Symbol'
     const decimals = '18'
-    const totalSupply = tokens('1000000')
+    const totalSupply = tokens('Insert Token Supply')
 
     // Nested deployment block
     describe('Deployment', () => {
