@@ -4,9 +4,9 @@ async function main() {
     const Token = await ethers.getContractFactory("Token");
 
     // Define the constructor arguments
-    const name = "Next Gen";
-    const symbol = "NXG";
-    const initialSupply = ethers.utils.parseUnits("1000000", 18); // 1 million tokens with 18 decimals
+    const name = "Insert Token Name";
+    const symbol = "Insert Token Symbol";
+    const initialSupply = ethers.utils.parseUnits("Insert Token Supply", 18); // 1 million tokens with 18 decimals
 
     // Deploy the contract
     const token = await Token.deploy(name, symbol, initialSupply);
